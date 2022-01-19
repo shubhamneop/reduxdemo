@@ -1,32 +1,24 @@
-import { useSelector, useDispatch, connect } from "react-redux";
-import { DECREMENT, INCREMENT, INCREMENTBY, TOGGLE } from "../store/type";
+import { useSelector, useDispatch } from "react-redux";
 import classes from "./Counter.module.css";
+import { counterActions } from "../store/counter";
 
-const Counter = ({
-  increment,
-  decrement,
-  increase,
-  toggle,
-  showCounter,
-  counter,
-}) => {
-  // const counter = useSelector((state) => state.counter);
-  // const dispatch = useDispatch();
+const Counter = ({}) => {
+  const counter = useSelector((state) => state.counter.counter);
+  const showCounter = useSelector((state) => state.counter.showCounter);
+  const dispatch = useDispatch();
 
   const incrementHandler = () => {
-    increment();
-    // dispatch({ type: "increment" });
+    dispatch(counterActions.increment());
   };
   const incrementByHandler = () => {
-    increase(5);
+    dispatch(counterActions.incrementby(5));
     // dispatch({ type: "increment" });
   };
   const decrementHandler = () => {
-    decrement();
-    // dispatch({ type: "decrement" });
+    dispatch(counterActions.decrement());
   };
   const toggleCounterHandler = () => {
-    toggle();
+    dispatch(counterActions.toggle());
   };
 
   return (
@@ -44,19 +36,20 @@ const Counter = ({
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    counter: state.counter,
-    showCounter: state.showCounter,
-  };
-};
+export default Counter;
+// const mapStateToProps = (state) => {
+//   return {
+//     counter: state.counter,
+//     showCounter: state.showCounter,
+//   };
+// };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    increment: () => dispatch({ type: INCREMENT }),
-    decrement: () => dispatch({ type: DECREMENT }),
-    increase: (val) => dispatch({ type: INCREMENTBY, payload: val }),
-    toggle: () => dispatch({ type: TOGGLE }),
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     increment: () => dispatch({ type: INCREMENT }),
+//     decrement: () => dispatch({ type: DECREMENT }),
+//     increase: (val) => dispatch({ type: INCREMENTBY, payload: val }),
+//     toggle: () => dispatch({ type: TOGGLE }),
+//   };
+// };
+// export default connect(mapStateToProps, mapDispatchToProps)(Counter);
